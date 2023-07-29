@@ -2,6 +2,7 @@ package com.jsp.HomeServeO.Dto;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,9 +24,12 @@ public class Customer {
 	private long phone;
 	private String pasword;
 	private int familyCount;
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL) /*giving cascad type as persist because we want do multiple operations 
+	from owning side only hence for address we don't need to create methods external.
+	* if don't use cascade then will get flush 
+	*/
 	private Address address;
-	@OneToMany(mappedBy = "customer")
+	@OneToMany(mappedBy = "customer",cascade = CascadeType.ALL)
 	private List<Work> works;
 	
 	

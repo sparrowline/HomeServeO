@@ -7,8 +7,10 @@ import com.jsp.HomeServeO.Dto.Customer;
 
 public interface CustomerRepo extends JpaRepository<Customer, Integer>{
 	
-	@Query("select a from Customer a where email=?1")
+	//@Query("select a from Customer a where email=?1")
 	public Customer findByEmail(String email);
+	
+	
 	
 	
 

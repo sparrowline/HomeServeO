@@ -20,45 +20,104 @@ public class VendorDao {
 
 	}
 
+	/*-------------------------------------------------------------------------------------------------------*/
+
 	public List<Vendors> getAllVendors() {
 		return repo.findAll();
 	}
 
+	/*-------------------------------------------------------------------------------------------------------*/
+
 	public Vendors getVendorsById(int id) {
-		Optional<Vendors> optional = repo.findById(id);
-		return optional.get();
+		if (repo.findById(id).isPresent()) {
+			Vendors vendors = repo.findById(id).get();
+			return vendors;
+		} else
+			return null;
+
 	}
 
-	public void deletecustomer(int id) {
-		Optional<Vendors> optional = repo.findById(id);
-		if (optional != null) {
-			repo.delete(optional.get());
+	/*-------------------------------------------------------------------------------------------------------*/
+
+	public Vendors deleteVendor(int id) {
+		Vendors vendors = repo.findById(id).get();
+		if (repo.findById(id).isPresent()) {
+			repo.delete(vendors);
+			
+			return vendors;
+			
 		}
+		return null;
 	}
 
-	public Vendors updateVendors(Vendors vendor) {
+	/*-------------------------------------------------------------------------------------------------------*/
 
-		Optional<Vendors> optional = repo.findById(vendor.getId());
-		if (optional != null) {
-			return repo.save(optional.get());
+	public Vendors updateVendors(Vendors vendors) {
+
+		Vendors db = repo.findById(vendors.getId()).get();
+		if (db != null) {
+
+			if (vendors.getName() == null) {
+				vendors.setName(db.getName());
+			}
+			if (vendors.getAddress() == null) {
+				vendors.setAddress(db.getAddress());
+			}
+			if (vendors.getCostPerDay() == 0) {
+				vendors.setCostPerDay(db.getCostPerDay());
+			}
+			if (vendors.getCosts() == null) {
+				vendors.setCostPerDay(db.getCostPerDay());
+			}
+			if (vendors.getEmail() == null) {
+				vendors.setEmail(db.getEmail());
+			}
+			if (vendors.getPassword() == null) {
+				vendors.setPassword(db.getPassword());
+			}
+			if (vendors.getPhone() == 0) {
+				vendors.setPhone(db.getPhone());
+			}
+			if (vendors.getRole() == null) {
+				vendors.setRole(db.getRole());
+			}
+
+			repo.save(vendors);
+			return vendors;
 		}
 		return null;
 
 	}
 
+	/*-------------------------------------------------------------------------------------------------------*/
+
 	// CRUD operations By using email
 
 	public Vendors getVendorByEmail(String email) {
 		Vendors vendors = repo.findByEmail(email);
-		return vendors;
+		if (vendors != null) {
+
+			return vendors;
+
+		} else
+			return null;
 	}
-	
-	public void deleteVendorByEmail(String email) {
-		Vendors vendors= repo.findByEmail(email);
-		if(vendors!=null) {
-			 repo.delete(vendors);
+
+	/*-------------------------------------------------------------------------------------------------------*/
+
+	public Vendors deleteVendorByEmail(String email) {
+
+		Vendors vendors = repo.findByEmail(email);
+		if (vendors != null) {
+			repo.delete(vendors);
+
+			return vendors;
 		}
-		
+
+		return null;
+
 	}
+
+	/*-------------------------------------------------------------------------------------------------------*/
 
 }
