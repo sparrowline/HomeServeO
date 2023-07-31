@@ -106,6 +106,7 @@ public class ExceptionHandleForHomeServo extends ResponseEntityExceptionHandler 
 	}
 	
 	/*-------------------------------------------------------------------------------------------------------*/
+
 	@ExceptionHandler(NoSuchElementFoundByVendorException.class)
 	public ResponseEntity<ResponseStructure<String>> noSuchElementFoundByVendorException(NoSuchElementFoundByVendorException nefv){
 		
@@ -116,6 +117,25 @@ public class ExceptionHandleForHomeServo extends ResponseEntityExceptionHandler 
 		
 		return new ResponseEntity<ResponseStructure<String>> (structure,HttpStatus.NOT_FOUND);
 	}
+	
+	/*-------------------------------------------------------------------------------------------------------*/
+
+	@ExceptionHandler(NoSuchelementFoundForWork.class)
+	public ResponseEntity<ResponseStructure<String>> noSuchelementFoundForWork(NoSuchelementFoundForWork nesw){
+		
+		ResponseStructure<String> structure = new ResponseStructure<>();
+		
+		structure.setMessage(nesw.getMessage());
+		structure.setStatus(HttpStatus.NOT_FOUND.value());
+		structure.setData("no data to be updated");
+		
+		return new ResponseEntity<ResponseStructure<String>>(structure,HttpStatus.NOT_FOUND);
+		
+		
+	}
+	
+	/*-------------------------------------------------------------------------------------------------------*/
+
 	
 	
 	

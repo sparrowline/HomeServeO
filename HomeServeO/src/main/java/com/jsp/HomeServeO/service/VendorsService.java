@@ -22,7 +22,7 @@ public class VendorsService {
 	private VendorDao dao;
 
 	public ResponseEntity<ResponseStructure<Vendors>> saveVendors(Vendors vendor) {
-		// why we are creating this object?
+		// why we are creating this object? to initialize it with response structure class data.
 		ResponseStructure<Vendors> structure = new ResponseStructure<Vendors>();
 
 		structure.setData(dao.saveVendor(vendor));
@@ -113,7 +113,7 @@ public class VendorsService {
 
 	/*-------------------------------------------------------------------------------------------------------*/
 
-	public ResponseEntity<ResponseStructure<Vendors>> login(@RequestParam String email, @RequestParam String pasword) {
+	public ResponseEntity<ResponseStructure<Vendors>> login(String email,String pasword) {
 
 		Vendors vendors = dao.getVendorByEmail(email);
 		if (vendors != null) {

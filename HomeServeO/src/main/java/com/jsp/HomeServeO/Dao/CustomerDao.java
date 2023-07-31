@@ -50,11 +50,11 @@ public class CustomerDao {
 		Customer customer = repo.findById(id).get();
 		if (customer != null) {
 
-			repo.delete(customer); // directly we can't delet it because delete() return type is void.
+			repo.delete(customer); // directly we can't delete it because delete() return type is void.
 
 			return customer;
 		}
-		// we can throw exception here if your enterd id is not present.
+		// we can throw exception here if your entered id is not present.
 		return null;
 	}
 
@@ -62,7 +62,7 @@ public class CustomerDao {
 
 	/*
 	 * taking the user updated values in the object if user not have updated all the
-	 * values then we will take it from the databse and initialised it so that other
+	 * values then we will take it from the database and initialized it so that other
 	 * won't get updated with the default null values.
 	 */
 	public Customer updateCustomer(Customer customer) {

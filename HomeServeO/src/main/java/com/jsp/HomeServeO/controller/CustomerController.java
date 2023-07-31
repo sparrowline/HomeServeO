@@ -17,12 +17,17 @@ import com.jsp.HomeServeO.Dto.Customer;
 import com.jsp.HomeServeO.service.CustomerService;
 import com.jsp.HomeServeO.util.ResponseStructure;
 
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 public class CustomerController {
 	
+	
 	@Autowired
 	private CustomerService service;
-
+	    /*@ApiOperation("this api saves the customer data")
+	     * This will give custom description of () in swagger application.
+	     */
 	@PostMapping("/customer")
 	public ResponseEntity<ResponseStructure<Customer>> saveCustomer(@RequestBody Customer customer) {
 		
