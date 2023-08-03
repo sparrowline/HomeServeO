@@ -14,19 +14,20 @@ public class WorkDao {
 	@Autowired
 	WorkRepo repo;
 
-	// save() ,getbyid(),listOfWorks(),update()
+	// save() ,getbyid(),listOfWorks(),update(),start date(),enddate()
 
 	/*-------------------------------------------------------------------------------------------------------*/
 
 	public Work saveWork(Work work) {
-		return saveWork(work);
+		return repo.save(work);
 
 	}
 	/*-------------------------------------------------------------------------------------------------------*/
 
-	public Work getById(int id) {
-		Work work = repo.findById(id).get();
-		if (work != null) {
+	public Work getWorkById(int id) {
+		if (repo.findById(id).isPresent()) {
+			Work work = repo.findById(id).get();
+
 			return work;
 		} else {
 			return null;
@@ -81,5 +82,7 @@ public class WorkDao {
 			return null;
 
 	}
+	/*-------------------------------------------------------------------------------------------------------*/
+
 
 }

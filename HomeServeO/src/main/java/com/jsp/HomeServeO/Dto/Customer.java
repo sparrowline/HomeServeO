@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 @Data
 @Entity
@@ -30,6 +32,8 @@ public class Customer {
 	*/
 	private Address address;
 	@OneToMany(mappedBy = "customer",cascade = CascadeType.ALL)
+	
+	@JsonIgnore
 	private List<Work> works;
 	
 	

@@ -9,8 +9,8 @@ import com.jsp.HomeServeO.Dto.Work;
 
 public interface WorkRepo extends JpaRepository<Work, Integer> {
 	
-	//works which are not started or maped with vendors 
-	@Query("select a from Work where a.startDate=null")
-	public List<Work> listWorks();
+	//works which are not started or mapped with vendors 
+	@Query("select a from Work a where a.startDate=null")
+	public  List<Work> listWorks();
 
 }

@@ -3,6 +3,7 @@ package com.jsp.HomeServeO.Dto;
 import java.sql.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,10 +24,11 @@ public class Work {
 	private String type;
 	private Date startDate;
 	private Date endDate;
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private Address address;
 	@ManyToMany
 	private List<Vendors> vendor;
+	
 	@ManyToOne
 	@JoinColumn
 	private Customer customer;
