@@ -59,10 +59,10 @@ public class ExceptionHandleForHomeServo extends ResponseEntityExceptionHandler 
 	@ExceptionHandler(PaswordIncorrectForCustomer.class)
 	public ResponseEntity<ResponseStructure<String>> paswordIncorrectForCustomer(PaswordIncorrectForCustomer pd){
 		ResponseStructure<String> structure= new ResponseStructure<String>();
-		structure.setData(pd.getMsg());
+		structure.setMessage(pd.getMessage());
 		structure.setStatus(HttpStatus.NOT_FOUND.value());
-		structure.setMessage("Please enter correct password");
-		
+		structure.setData("Please enter correct password");
+
 		return new ResponseEntity<ResponseStructure<String>>(structure,HttpStatus.NOT_FOUND);
 		
 	}
@@ -136,6 +136,20 @@ public class ExceptionHandleForHomeServo extends ResponseEntityExceptionHandler 
 	
 	/*-------------------------------------------------------------------------------------------------------*/
 
+	@ExceptionHandler(NoSuchElementFoundForAddress.class)
+	public ResponseEntity<ResponseStructure<String>> noSuchelementFoundFor(NoSuchElementFoundForAddress nesf){
+		
+		ResponseStructure<String> structure = new ResponseStructure<>();
+		
+		structure.setMessage(nesf.getMessage());
+		structure.setStatus(HttpStatus.NOT_FOUND.value());
+		structure.setData("no data to be updated");
+		
+		return new ResponseEntity<ResponseStructure<String>>(structure,HttpStatus.NOT_FOUND);
+		
+		
+	}
+	
 	
 	
 	

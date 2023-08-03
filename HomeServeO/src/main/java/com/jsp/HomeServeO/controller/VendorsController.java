@@ -29,32 +29,43 @@ public class VendorsController {
 		
 		return service.saveVendors(vendors);
 	}
+	/*-------------------------------------------------------------------------------------------------------*/
+
 	
 	@PutMapping("/vendors")
 	public ResponseEntity<ResponseStructure<Vendors>> updateVendors(@RequestBody Vendors vendors){
 		return service.updateVendors(vendors);
 	}
+	/*-------------------------------------------------------------------------------------------------------*/
+
 	
 	@GetMapping("/vendors/login")
 	public ResponseEntity<ResponseStructure<Vendors>> login(@RequestParam String email,@RequestParam String pasword){
 		return service.login(email, pasword);
 	}
+	/*-------------------------------------------------------------------------------------------------------*/
+
 	
-	@GetMapping("/vendors/{id}")
-	public ResponseEntity<ResponseStructure<Vendors>> getVendorById(@PathVariable int id){
+	@GetMapping("/vendorsById")
+	public ResponseEntity<ResponseStructure<Vendors>> getVendorById(@RequestParam int id){
 		return service.getVendorById(id);
 		
 	}
-	
-	@GetMapping("/vendors")
-	public ResponseEntity<ResponseStructure<List<Vendors>>> getAllVendors(){
-		return service.getAllVendors();
+	/*-------------------------------------------------------------------------------------------------------*/
+
+	@GetMapping("/vendors")  //use customer id as the argument for checking if the customer is their first and handle the exception
+	public ResponseEntity<ResponseStructure<List<Vendors>>> getAllVendors(@RequestParam int id){
+		return service.getAllVendors(id);
 	}
+	/*-------------------------------------------------------------------------------------------------------*/
+
 	
-	@DeleteMapping("/vendors/{id}")
-	public ResponseEntity<ResponseStructure<Vendors>> deletVendores(@PathVariable int id){
+	@DeleteMapping("/vendors")
+	public ResponseEntity<ResponseStructure<Vendors>> deletVendores(@RequestParam int id){
 		return service.deleteVendors(id);
 	}
+	/*-------------------------------------------------------------------------------------------------------*/
+
 	
 	
 	

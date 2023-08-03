@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -47,8 +46,8 @@ public class CustomerController {
 	
 	//while passing url in postman add "customer/id"  because we will be fetching based on the path variable id.
 	
-	@GetMapping("/customer/{id}")
-	public ResponseEntity<ResponseStructure<Customer>> getCustomerByID(@PathVariable int id) {
+	@GetMapping("/customer")
+	public ResponseEntity<ResponseStructure<Customer>> getCustomerByID(@RequestParam int id) {
 		return service.getCustomerById(id);
 	}
 	
@@ -63,21 +62,21 @@ public class CustomerController {
 	/*-------------------------------------------------------------------------------------------------------*/
 
 	
-	@DeleteMapping("/customer/{id}")
-	public ResponseEntity<ResponseStructure<Customer>> deleteCustomer(@PathVariable int id){
+	@DeleteMapping("/customer")
+	public ResponseEntity<ResponseStructure<Customer>> deleteCustomer(@RequestParam int id){
 		return service.deleteCustomer(id);
 		
 	}
 	
 	/*-------------------------------------------------------------------------------------------------------*/
 
-	
-	@GetMapping("/customer")
-	public  ResponseEntity<ResponseStructure<List<Customer>>> getAllCustomer(){
-		return service.getAllCustomer();
-		
-	}
-	
+//	//we don't need this its extra
+//	@GetMapping("/customer")
+//	public  ResponseEntity<ResponseStructure<List<Customer>>> getAllCustomer(){
+//		return service.getAllCustomer();
+//		
+//	}
+//	
 	/*-------------------------------------------------------------------------------------------------------*/
 
 	

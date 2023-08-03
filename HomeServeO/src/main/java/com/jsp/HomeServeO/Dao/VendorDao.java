@@ -40,8 +40,9 @@ public class VendorDao {
 	/*-------------------------------------------------------------------------------------------------------*/
 
 	public Vendors deleteVendor(int id) {
-		Vendors vendors = repo.findById(id).get();
 		if (repo.findById(id).isPresent()) {
+			Vendors vendors = repo.findById(id).get();
+
 			repo.delete(vendors);
 			
 			return vendors;

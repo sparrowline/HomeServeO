@@ -5,15 +5,15 @@ import lombok.Data;
 @Data
 public class PaswordIncorrectForCustomer extends RuntimeException {
 	
-	private String msg = "Incorrect password please enter correct password";
+	private String message = "Incorrect password please enter correct password";
 
 	public PaswordIncorrectForCustomer() {
 		super();
 	}
 
-	public PaswordIncorrectForCustomer(String msg) {
+	public PaswordIncorrectForCustomer(String message) {
 		super();
-		this.msg = msg;
+		this.message = message;
 	}
 	
 	

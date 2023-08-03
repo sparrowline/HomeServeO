@@ -13,7 +13,7 @@ import com.jsp.HomeServeO.Repo.CustomerRepo;
 public class CustomerDao {
 
 	@Autowired
-	CustomerRepo repo;
+	private CustomerRepo repo;
 
 	public Customer saveCustomer(Customer customer) {
 		return repo.save(customer);

@@ -8,9 +8,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.jsp.HomeServeO.Dao.CustomerDao;
 import com.jsp.HomeServeO.Dao.VendorDao;
+import com.jsp.HomeServeO.Dto.Customer;
 import com.jsp.HomeServeO.Dto.Vendors;
 import com.jsp.HomeServeO.exception.EmailNotFoundForVendor;
+import com.jsp.HomeServeO.exception.NoSuchElementFoundByCustomerexception;
 import com.jsp.HomeServeO.exception.NoSuchElementFoundByVendorException;
 import com.jsp.HomeServeO.exception.PasswordIncorrectForVendor;
 import com.jsp.HomeServeO.util.ResponseStructure;
@@ -20,6 +23,9 @@ public class VendorsService {
 
 	@Autowired
 	private VendorDao dao;
+	
+	@Autowired
+	private CustomerDao customerDao;
 
 	public ResponseEntity<ResponseStructure<Vendors>> saveVendors(Vendors vendor) {
 		// why we are creating this object? to initialize it with response structure class data.
@@ -73,14 +79,20 @@ public class VendorsService {
 
 	/*-------------------------------------------------------------------------------------------------------*/
 
-	public ResponseEntity<ResponseStructure<List<Vendors>>> getAllVendors() {
+	public ResponseEntity<ResponseStructure<List<Vendors>>> getAllVendors(int c_id) {
 
-		ResponseStructure<List<Vendors>> structure = new ResponseStructure<>();
 
-		List<Vendors> vendors = dao.getAllVendors();
+		Customer customer = customerDao.getCustomerById(c_id);
+		
 
-		if (vendors != null) {
-			structure.setMessage("All the Data fetched successfully");
+		if (customer != null) {
+			
+			ResponseStructure<List<Vendors>> structure = new ResponseStructure<>();
+			
+			List<Vendors> vendors = dao.getAllVendors();
+			if(vendors != null) {
+
+			structure.setMessage("All the vendors fetched successfully");
 			structure.setStatus(HttpStatus.FOUND.value());
 			structure.setData(vendors);
 
@@ -88,6 +100,9 @@ public class VendorsService {
 		} else
 
 			throw new NoSuchElementFoundByVendorException("No vendors are ther to show.");
+		}
+		throw new NoSuchElementFoundByCustomerexception("No customers are ther to show.");
+
 
 	}
 

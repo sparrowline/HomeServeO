@@ -5,11 +5,11 @@ import lombok.Data;
 @Data
 public class NoSuchElementFoundByCustomerexception extends RuntimeException {
 	
-	private String msg =" No such element found!";
+	private String message =" No such element found!";
 
-	public NoSuchElementFoundByCustomerexception(String msg) {
+	public NoSuchElementFoundByCustomerexception(String message) {
 		super();
-		this.msg = msg;
+		this.message = message;
 	}
 
 	public NoSuchElementFoundByCustomerexception() {

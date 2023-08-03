@@ -7,6 +7,6 @@ public class ResponseStructure<T> {
 	
 	private String message;
 	private int status;
-	private T data; // it will accept t type of data 
+	private T data; 
 
 }

@@ -1,10 +1,12 @@
 package com.jsp.HomeServeO.Dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.jsp.HomeServeO.Dto.Address;
 import com.jsp.HomeServeO.Repo.AddressRepo;
 
+@Repository
 public class AddressDao {
 
 	// updateAddress,getAddressById because delete and save operations are performed through customer & vendor
@@ -52,5 +54,7 @@ public class AddressDao {
 		} else
 			return null;
 	}
+	
+	
 
 }

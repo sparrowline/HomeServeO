@@ -5,11 +5,11 @@ import lombok.Data;
 @Data
 public class EmailNotFoundForVendor extends RuntimeException {
 	
-	private String msg = "Email not found please register first or enter correct email";
+	private String message = "Email not found please register first or enter correct email";
 
-	public EmailNotFoundForVendor(String msg) {
+	public EmailNotFoundForVendor(String message) {
 		super();
-		this.msg = msg;
+		this.message = message;
 	}
 
 	public EmailNotFoundForVendor() {

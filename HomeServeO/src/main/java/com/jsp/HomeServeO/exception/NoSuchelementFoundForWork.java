@@ -5,11 +5,11 @@ import lombok.Data;
 @Data
 public class NoSuchelementFoundForWork extends RuntimeException {
 
-	private String msg="no particular id found to  be updated in Works";
+	private String message="no particular id found to  be updated in Works";
 
-	public NoSuchelementFoundForWork(String msg) {
+	public NoSuchelementFoundForWork(String message) {
 		super();
-		this.msg = msg;
+		this.message = message;
 	}
 
 	public NoSuchelementFoundForWork() {
