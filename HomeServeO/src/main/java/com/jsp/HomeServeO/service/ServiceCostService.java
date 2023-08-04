@@ -46,9 +46,9 @@ public class ServiceCostService {
 			Work work = workDao.getWorkById(w_id);
 			if (work != null) {
 				double costPerDay = vendors.getCostPerDay();
-
-				Date end = work.getEndDate();
+				
 				Date start = work.getStartDate();
+				Date end = work.getEndDate();
 
 				java.time.Duration duration = java.time.Duration.between(start.toLocalDate().atStartOfDay(),
 						end.toLocalDate().atStartOfDay());
@@ -59,14 +59,13 @@ public class ServiceCostService {
 				cost.setTotalAmount(days * costPerDay);
 				ServiceCost cost2 = serviceCostDao.saveCost(cost);
 
-				work.setCost(cost2);
 				List<ServiceCost> list = new ArrayList<ServiceCost>();
 				list.add(cost2);
 				list.addAll(vendors.getCosts());
 
 				vendors.setCosts(list);
 				vendorDao.updateVendors(vendors);
-				workDao.saveWork(work);
+				workDao.updateWork(work);
 
 				ResponseStructure<ServiceCost> structure = new ResponseStructure<ServiceCost>();
 

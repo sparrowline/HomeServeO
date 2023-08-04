@@ -1,19 +1,22 @@
 package com.jsp.HomeServeO.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.jsp.HomeServeO.Dto.ServiceCost;
 import com.jsp.HomeServeO.service.ServiceCostService;
 import com.jsp.HomeServeO.util.ResponseStructure;
-
+@RestController
 public class ServiceCostController {
 	
 	//save() , payment() 
 	
+	@Autowired
 	private ServiceCostService service;
 	
 	/*-------------------------------------------------------------------------------------------------------*/

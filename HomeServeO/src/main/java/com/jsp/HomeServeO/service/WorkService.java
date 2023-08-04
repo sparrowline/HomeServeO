@@ -113,6 +113,7 @@ public class WorkService {
 				list.add(vendor);
 				Date date = new Date(new java.util.Date().getTime());
 				work.setStartDate(date);
+				work.setVendor(list);
 				ResponseStructure<Work> structure = new ResponseStructure<>();
 				structure.setMessage("start date updated successfully.");
 				structure.setStatus(HttpStatus.FOUND.value());

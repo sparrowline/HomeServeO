@@ -53,7 +53,7 @@ public class WorkController {
 	/*-------------------------------------------------------------------------------------------------------*/
 
 	
-	@GetMapping("/allwork") //pass vendor id;
+	@GetMapping("/allwork") //pass vendor id;  
 	public ResponseEntity<ResponseStructure<List<Work>>> listOfWork(@RequestParam int id) {
 		return service.listOfWork(id);
 	}
