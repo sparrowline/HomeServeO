@@ -2,6 +2,7 @@ package com.jsp.HomeServeO.service;
 
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,15 +10,25 @@ import org.springframework.stereotype.Service;
 
 import com.jsp.HomeServeO.Dao.CustomerDao;
 import com.jsp.HomeServeO.Dto.Customer;
+import com.jsp.HomeServeO.Duplicate.CustomerDuplicate;
 import com.jsp.HomeServeO.exception.EmailNotFoundForCustomer;
 import com.jsp.HomeServeO.exception.NoSuchElementFoundByCustomerexception;
 import com.jsp.HomeServeO.exception.PaswordIncorrectForCustomer;
 import com.jsp.HomeServeO.util.ResponseStructure;
 
+
 @Service
 public class CustomerService {
 	@Autowired
 	private CustomerDao dao;
+	@Autowired
+	private CustomerDuplicate customerclone;
+	
+	@Autowired
+	private ModelMapper mapper;
+	
+	
+	
 
 	/*----------------------------------------------------------------------------------------------------*/
 
@@ -65,7 +76,7 @@ public class CustomerService {
 		
 		//This is developers created response structure class initializing it for handling the exception
 		
-		ResponseStructure<Customer> structure = new ResponseStructure<Customer>();
+				ResponseStructure<Customer> structure = new ResponseStructure<Customer>();
 
 		if (db != null) {
 			structure.setData(db);// where db=dao.getCustomerById(id)
@@ -149,6 +160,36 @@ public class CustomerService {
 
 	/*-------------------------------------------------------------------------------------------------------*/
 
+	
+	//this is duplicate class of customer 
+	
+	public ResponseEntity<ResponseStructure<CustomerDuplicate>> getCustomer(int id){
+		
+		Customer customer = dao.getCustomerById(id);
+		
+		
+		if(customer!= null) {
+			
+			CustomerDuplicate customerDuplicate= this.mapper.map(customer,CustomerDuplicate.class);
+
+//			customerclone.setId(customer.getId());
+//			customerclone.setName(customer.getName());
+//			customerclone.setEmail(customer.getEmail());
+//			customerclone.setPhone(customer.getPhone());
+//			customerclone.setFamilyCount(customer.getFamilyCount());
+//
+			ResponseStructure<CustomerDuplicate> structure = new ResponseStructure<>();
+			structure.setMessage("data fetched successfully");
+			structure.setStatus(HttpStatus.FOUND.value());
+			structure.setData(customerDuplicate);
+			
+			return new ResponseEntity<ResponseStructure<CustomerDuplicate>>(structure,HttpStatus.FOUND);
+			
+		}
+		
+		throw new NoSuchElementFoundByCustomerexception("No data found for particular id");
+	}
+	
 }
 
 /*-------------------------------------------------------------------------------------------------------*/

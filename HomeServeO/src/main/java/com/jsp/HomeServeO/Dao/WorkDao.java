@@ -35,7 +35,7 @@ public class WorkDao {
 	}
 
 	/*-------------------------------------------------------------------------------------------------------*/
-
+	//for UnMapped Works-----
 	public List<Work> listOfWork() {
 		List<Work> list = repo.listWorks();
 
@@ -44,6 +44,18 @@ public class WorkDao {
 		} else
 			return null;
 	}
+	
+	/*-------------------------------------------------------------------------------------------------------*/
+	//list of all works maped as well as unmapped
+	public List<Work> listOfAllWork(){
+		List<Work> list = repo.findAll();
+		
+		return list;
+	}
+  	
+	
+	
+	
 
 	/*-------------------------------------------------------------------------------------------------------*/
 

@@ -1,12 +1,15 @@
 package com.jsp.HomeServeO.Dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.jsp.HomeServeO.Dto.ServiceCost;
 import com.jsp.HomeServeO.Dto.Vendors;
+import com.jsp.HomeServeO.Dto.Work;
 import com.jsp.HomeServeO.Repo.VendorRepo;
 
 @Repository
@@ -14,6 +17,9 @@ public class VendorDao {
 
 	@Autowired
 	VendorRepo repo;
+
+	@Autowired
+	WorkDao dao;
 
 	public Vendors saveVendor(Vendors vendor) {
 		return repo.save(vendor);
@@ -39,17 +45,7 @@ public class VendorDao {
 
 	/*-------------------------------------------------------------------------------------------------------*/
 
-	public Vendors deleteVendor(int id) {
-		if (repo.findById(id).isPresent()) {
-			Vendors vendors = repo.findById(id).get();
-
-			repo.delete(vendors);
-			
-			return vendors;
-			
-		}
-		return null;
-	}
+	
 
 	/*-------------------------------------------------------------------------------------------------------*/
 
@@ -120,5 +116,41 @@ public class VendorDao {
 	}
 
 	/*-------------------------------------------------------------------------------------------------------*/
+	public Vendors deleteVendor(int vendorId) {
+		if (repo.findById(vendorId).isPresent()) {
+			Vendors v1 = repo.findById(vendorId).get();
 
+			List<Work> list = dao.listOfAllWork();
+			
+			if (list != null) {
+				List<Vendors> updatedVendor1 = new ArrayList<>();
+
+				for (Work work : list) {
+					List<Vendors> ven = work.getVendor();
+					if (ven != null) {
+						for (Vendors vendor : ven) {
+
+							if (vendor.getId() != vendorId) {
+								updatedVendor1.add(vendor);
+
+							}
+						}
+					}
+
+					work.setVendor(updatedVendor1);
+					dao.updateWork(work);
+
+				}
+			}
+
+			v1.setCosts(null);
+			repo.deleteById(vendorId);
+			return v1;
+			
+		} else
+			
+			return null;
+	}
+	
+/*-------------------------------------------------------------------------------------------------------*/
 }

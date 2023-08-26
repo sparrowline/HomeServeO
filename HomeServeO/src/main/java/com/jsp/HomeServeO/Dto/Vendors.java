@@ -1,6 +1,8 @@
 package com.jsp.HomeServeO.Dto;
 
 import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,7 +28,7 @@ public class Vendors {
 	private Address address;
 	
 	private String role;
-	@OneToMany
+    @OneToMany 
 	private List<ServiceCost> costs;
 	
 	

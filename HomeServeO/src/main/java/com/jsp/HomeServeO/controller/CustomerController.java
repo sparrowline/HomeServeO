@@ -4,21 +4,25 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jsp.HomeServeO.Dto.Customer;
+import com.jsp.HomeServeO.Duplicate.CustomerDuplicate;
 import com.jsp.HomeServeO.service.CustomerService;
 import com.jsp.HomeServeO.util.ResponseStructure;
 
 import io.swagger.annotations.ApiOperation;
 
 @RestController
+@CrossOrigin(origins = "http://127.0.0.1:5500",methods =  {RequestMethod.POST,RequestMethod.GET,RequestMethod.DELETE,RequestMethod.PUT})
 public class CustomerController {
 	
 	
@@ -79,11 +83,17 @@ public class CustomerController {
 //	
 	/*-------------------------------------------------------------------------------------------------------*/
 
+	//clone Customer API to fetch only assential details through url
+	
+	@GetMapping("/clonecustomerbyid")
+	public ResponseEntity<ResponseStructure<CustomerDuplicate>> getCloneCustomerByID(@RequestParam int id){
+		return service.getCustomer(id);
+	}
 	
 	
 	
 	
-	
-	
+	/*-------------------------------------------------------------------------------------------------------*/
+
 	
 }

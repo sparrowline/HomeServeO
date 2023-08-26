@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.jsp.HomeServeO.Dto.Customer;
+import com.jsp.HomeServeO.Dto.Work;
 import com.jsp.HomeServeO.Repo.CustomerRepo;
 
 @Repository
@@ -14,6 +15,9 @@ public class CustomerDao {
 
 	@Autowired
 	private CustomerRepo repo;
+
+	@Autowired
+	private WorkDao dao;
 
 	public Customer saveCustomer(Customer customer) {
 		return repo.save(customer);
@@ -47,14 +51,22 @@ public class CustomerDao {
 
 	public Customer deleteCustomer(int id) {
 
-		Customer customer = repo.findById(id).get();
-		if (customer != null) {
+		if (repo.findById(id).isPresent()) {
+			Customer c1 = repo.findById(id).get(); // if customer by id is present store in refrence
+			List<Work> list = dao.listOfAllWork(); // getAllWorks which are uploaded by customer
+			if (list != null) { // if list contains object (number of works)
+				for (Work work : list) { // iterate the work in each work find which work matches with the deleting
+											// customer and delete all works uploaded by particular customer
+					if (work.getCustomer().getId() == id) {
+						work.setCustomer(null);
 
-			repo.delete(customer); // directly we can't delete it because delete() return type is void.
-
-			return customer;
+						dao.updateWork(work);
+					}
+				}
+			}
+			repo.deleteById(id);
+			return c1;
 		}
-		// we can throw exception here if your entered id is not present.
 		return null;
 	}
 
@@ -62,8 +74,8 @@ public class CustomerDao {
 
 	/*
 	 * taking the user updated values in the object if user not have updated all the
-	 * values then we will take it from the database and initialized it so that other
-	 * won't get updated with the default null values.
+	 * values then we will take it from the database and initialized it so that
+	 * other won't get updated with the default null values.
 	 */
 	public Customer updateCustomer(Customer customer) {
 		Customer db = repo.findById(customer.getId()).get();
