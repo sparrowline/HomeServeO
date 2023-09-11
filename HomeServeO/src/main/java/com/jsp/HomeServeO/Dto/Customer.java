@@ -31,8 +31,8 @@ public class Customer {
 	* if don't use cascade then will get flush 
 	*/
 	private Address address;
-	@OneToMany(mappedBy = "customer",cascade = CascadeType.ALL)
 	
+	@OneToMany(mappedBy = "customer",cascade = CascadeType.ALL)
 	@JsonIgnore
 	private List<Work> works;
 	

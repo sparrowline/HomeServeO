@@ -56,15 +56,17 @@ public class CustomerDao {
 			List<Work> list = dao.listOfAllWork(); // getAllWorks which are uploaded by customer
 			if (list != null) { // if list contains object (number of works)
 				for (Work work : list) { // iterate the work in each work find which work matches with the deleting
-											// customer and delete all works uploaded by particular customer
-					if (work.getCustomer().getId() == id) {
-						work.setCustomer(null);
+					
+					Customer customer = work.getCustomer();
 
+					if (customer != null && customer.getId() == id) { // Check if customer is not null
+						work.setCustomer(null);
 						dao.updateWork(work);
 					}
 				}
 			}
 			repo.deleteById(id);
+
 			return c1;
 		}
 		return null;

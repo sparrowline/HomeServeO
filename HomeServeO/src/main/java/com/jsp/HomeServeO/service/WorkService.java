@@ -20,6 +20,8 @@ import com.jsp.HomeServeO.exception.NoSuchElementFoundByVendorException;
 import com.jsp.HomeServeO.exception.NoSuchelementFoundForWork;
 import com.jsp.HomeServeO.util.ResponseStructure;
 
+import net.bytebuddy.implementation.bytecode.Throw;
+
 @Service
 public class WorkService {
 
@@ -190,7 +192,38 @@ public class WorkService {
 		
 	}
 	
+	/*-------------------------------------------------------------------------------------------------------*/
+
 	
+	public ResponseEntity<ResponseStructure<List<Work>>> ongoingWork(int v_id){
+		Vendors vendors= vendorDao.getVendorsById(v_id);
+		if(vendors!=null) {
+			ResponseStructure<List<Work>> structure = new ResponseStructure<>();
+			structure.setData(dao.ongoinWork());
+			structure.setMessage("list of ongoind works");
+			structure.setStatus(HttpStatus.FOUND.value());
+			
+			return new ResponseEntity<ResponseStructure<List<Work>>>(structure,HttpStatus.FOUND);
+		} 
+		else 
+			throw new NoSuchElementFoundByVendorException("no vendor found");
+	}
+	
+	/*-------------------------------------------------------------------------------------------------------*/
+
+	public ResponseEntity<ResponseStructure<List<Work>>> completedWorks(int v_id){
+		Vendors vendors = vendorDao.getVendorsById(v_id);
+		if(vendors !=null) {
+			ResponseStructure<List<Work>> structure = new ResponseStructure<>();
+			structure.setData(dao.completedWorks());
+			structure.setMessage("Here is the list of completed works");
+			structure.setStatus(HttpStatus.FOUND.value());
+			
+			return new ResponseEntity<ResponseStructure<List<Work>>>(structure,HttpStatus.FOUND);
+	
+		}
+		throw new NoSuchElementFoundByVendorException("no vendor found.");
+	}
 	
 	
 	

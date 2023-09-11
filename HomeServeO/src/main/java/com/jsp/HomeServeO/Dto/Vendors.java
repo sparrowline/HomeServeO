@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 @Entity
 @Data
@@ -24,13 +26,11 @@ public class Vendors {
 	private long phone;
 	private String password;
 	private double costPerDay;
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private Address address;
 	
 	private String role;
-    @OneToMany 
+	@OneToMany//(mappedBy = "Vendors",cascade = CascadeType.ALL)
 	private List<ServiceCost> costs;
 	
-	
-
 }

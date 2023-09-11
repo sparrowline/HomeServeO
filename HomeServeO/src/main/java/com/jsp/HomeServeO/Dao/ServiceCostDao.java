@@ -23,9 +23,10 @@ public class ServiceCostDao {
 		ServiceCost cost2 = repo.findById(cost.getId()).get();
 
 		if (cost2 != null) {
+			System.out.println(cost.getMode());
 			cost2.setMode(cost.getMode());
 
-			return repo.save(cost);
+			return repo.save(cost2);
 		} else
 			return null;
 	}

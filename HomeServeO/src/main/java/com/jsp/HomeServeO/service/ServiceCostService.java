@@ -36,8 +36,8 @@ public class ServiceCostService {
 	@Autowired
 	private CustomerDao customerDao;
 
-	@Autowired
-	private ServiceCost cost;
+	
+	
 
 	public ResponseEntity<ResponseStructure<ServiceCost>> saveCost(int v_id, int w_id) {
 		Vendors vendors = vendorDao.getVendorsById(v_id);
@@ -54,6 +54,8 @@ public class ServiceCostService {
 						end.toLocalDate().atStartOfDay());
 
 				int days = (int) duration.toDays();
+				
+				ServiceCost cost = new ServiceCost();
 
 				cost.setDays(days);
 				cost.setTotalAmount(days * costPerDay);
@@ -65,6 +67,7 @@ public class ServiceCostService {
 
 				vendors.setCosts(list);
 				vendorDao.updateVendors(vendors);
+				work.setCost(cost2);
 				workDao.updateWork(work);
 
 				ResponseStructure<ServiceCost> structure = new ResponseStructure<ServiceCost>();
@@ -93,11 +96,12 @@ public class ServiceCostService {
 			ServiceCost cost = serviceCostDao.getServiceCost(cost2.getId());
 
 			if (cost != null) {
+				System.out.println(cost.getMode());
 
 				ResponseStructure<ServiceCost> structure = new ResponseStructure<>();
 				structure.setMessage("cost saved successfully");
 				structure.setStatus(HttpStatus.CREATED.value());
-				structure.setData(serviceCostDao.payServiceCost(cost));
+				structure.setData(serviceCostDao.payServiceCost(cost2));
 
 				return new ResponseEntity<ResponseStructure<ServiceCost>>(structure, HttpStatus.CREATED);
 			} else
