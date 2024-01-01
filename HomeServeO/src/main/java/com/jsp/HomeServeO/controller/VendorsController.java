@@ -53,7 +53,7 @@ public class VendorsController {
 		
 	}
 	/*-------------------------------------------------------------------------------------------------------*/
-
+	
 	@GetMapping("/vendors")  //use customer id as the argument for checking if the customer is their first and handle the exception
 	public ResponseEntity<ResponseStructure<List<Vendors>>> getAllVendors(@RequestParam int id){
 		return service.getAllVendors(id);

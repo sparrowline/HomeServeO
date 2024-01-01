@@ -17,7 +17,7 @@ public class HomeServeOApplication {
 		return new ModelMapper();
 	}
 
-// inted this use @crossorigin() 
+// insted this use @crossorigin()  
 //	public class WebConfig implements WebMvcConfigurer{
 //		public void addCorsMappings(CorsRegistry registry) {
 //			registry.addMapping("/**")

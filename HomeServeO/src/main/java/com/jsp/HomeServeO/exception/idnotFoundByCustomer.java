@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class idnotFoundByCustomer extends RuntimeException {
 	
-	private String message="hlo";
+	private String message="Id not found";
 
 	public idnotFoundByCustomer(String message) {
 		super();

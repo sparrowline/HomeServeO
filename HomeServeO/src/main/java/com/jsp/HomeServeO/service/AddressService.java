@@ -47,7 +47,7 @@ public class AddressService {
 
 		}
 		else 
-			throw new NoSuchElementFoundForAddress();
+			throw new NoSuchElementFoundForAddress("address not ther in the database.");
 	}
 
 }

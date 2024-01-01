@@ -30,7 +30,7 @@ public class Vendors {
 	private Address address;
 	
 	private String role;
-	@OneToMany//(mappedBy = "Vendors",cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<ServiceCost> costs;
 	
 }
